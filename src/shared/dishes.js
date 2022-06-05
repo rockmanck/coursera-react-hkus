@@ -40,9 +40,9 @@ export const DISHES =
                 {
                     id: 4,
                     rating: 2,
-                    comment: "It's your birthday, we're gonna party!",
-                    author: "25 Cent",
-                    date: "2011-12-02T17:57:28.556094Z"
+                    comment: "Some unique comment",
+                    author: "Rocky",
+                    date: "2021-02-02T17:57:28.556094Z"
                 }
             ]
         },
