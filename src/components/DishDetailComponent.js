@@ -1,4 +1,4 @@
-import React from "react";
+import  React from "react";
 import {Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 
 function DishDetail(props) {

@@ -13,7 +13,6 @@ class Main extends Component {
             dishes: DISHES,
             selectedDish: null
         };
-
     }
 
     onDishSelect(dishId) {
