@@ -26,7 +26,10 @@ function DishDetail(props) {
                 return (
                     <div key={'comment-' + c.id}>
                         <p>{c.comment}</p>
-                        <p>-- {c.author}, {c.date}</p>
+                        <p>-- {c.author}, {new Intl.DateTimeFormat(
+                            'en-US',
+                            {year: 'numeric', month: 'short', day: '2-digit'})
+                            .format(new Date(Date.parse(c.date)))}</p>
                     </div>
                 )
             });
@@ -49,9 +52,11 @@ function DishDetail(props) {
     };
 
     return (
-        <div className="row">
-            {renderDish(props.selected)}
-            {renderComments(props.selected)}
+        <div className="container">
+            <div className="row">
+                {renderDish(props.selected)}
+                {renderComments(props.selected)}
+            </div>
         </div>
     );
 }
