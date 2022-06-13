@@ -10,6 +10,7 @@ import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Contact from "./ContactComponent";
+import DishDetail from "./DishDetailComponent";
 
 class Main extends Component {
 
@@ -39,6 +40,10 @@ class Main extends Component {
                               leader={featuredLeader}/>
                     }/>
                     <Route path="/menu" element={<Menu dishes={this.state.dishes}/>}/>
+                    <Route
+                        path="/menu/:dishId"
+                        element={<DishDetail dishes={this.state.dishes} comments={this.state.comments}/>}
+                    />
                     <Route path="/contactus" element={<Contact />} />
                     <Route path="/" element={<Navigate replace to="/home" />}/>
                 </Routes>
