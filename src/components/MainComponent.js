@@ -8,6 +8,7 @@ import Contact from "./ContactComponent";
 import DishDetail from "./DishDetailComponent";
 import About from "./AboutComponent";
 import {connect} from "react-redux";
+import { addComment } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -17,6 +18,10 @@ const mapStateToProps = state => {
         promotions: state.promotions
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+});
 
 class Main extends Component {
 
@@ -42,7 +47,11 @@ class Main extends Component {
                     <Route path="/menu" element={<Menu dishes={this.props.dishes}/>}/>
                     <Route
                         path="/menu/:dishId"
-                        element={<DishDetail dishes={this.props.dishes} comments={this.props.comments}/>}
+                        element={<DishDetail
+                            dishes={this.props.dishes}
+                            comments={this.props.comments}
+                            addComment={this.props.addComment}
+                        />}
                     />
                     <Route path="/contactus" element={<Contact />} />
                     <Route path="/aboutus" element={<About leaders={this.props.leaders}/>} />
@@ -62,4 +71,4 @@ export const withRouter = (Component) => {
     return Wrapper;
 };
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

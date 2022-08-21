@@ -18,7 +18,7 @@ function DishDetail(props) {
         );
     };
 
-    const renderComments = (comments) => {
+    const renderComments = (comments, addComment, dishId) => {
         const commentsBlock = comments.map((c) => {
             return (
                 <div key={'comment-' + c.id}>
@@ -41,7 +41,7 @@ function DishDetail(props) {
                         </CardText>
                     </CardBody>
                 </Card>
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         );
     };
@@ -67,7 +67,7 @@ function DishDetail(props) {
             </div>
             <div className="row">
                 {renderDish(dish)}
-                {renderComments(comments)}
+                {renderComments(comments, props.addComment, id)}
             </div>
         </div>
     );

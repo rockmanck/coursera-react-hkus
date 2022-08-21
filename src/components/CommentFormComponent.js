@@ -9,10 +9,9 @@ function CommentForm(props) {
     const maxLength = (len) => (val) => !val || val.length <= len;
     const minLength = (len) => (val) => val && val.length >= len;
     const submitComment = (values) => {
-        let content = JSON.stringify(values);
-        alert(content);
+        props.addComment(props.dishId, values.rating, values.author, values.comment);
         toggle();
-    }
+    };
 
     return (
         <div className="mt-1">
