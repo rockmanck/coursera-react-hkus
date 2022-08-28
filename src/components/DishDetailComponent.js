@@ -2,20 +2,39 @@ import React from "react";
 import {Breadcrumb, BreadcrumbItem, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 import {Link, useParams} from "react-router-dom";
 import CommentForm from "./CommentFormComponent";
+import {Loading} from "./LoadingComponent";
 
 function DishDetail(props) {
-    const renderDish = (dish) => {
-        return (
-            <div key={dish.id} className="col-12 col-md-5 m-1">
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name}/>
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
-            </div>
-        );
+    const renderDish = (dish, isLoading, errMess) => {
+        if (isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        } else if (errMess) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <h4>errMess</h4>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div key={dish.id} className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </div>
+            );
+        }
     };
 
     const renderComments = (comments, addComment, dishId) => {
@@ -47,7 +66,7 @@ function DishDetail(props) {
     };
     const {dishId} = useParams();
     const id = parseInt(dishId);
-    const dish = props.dishes.filter((d) => d.id === id)[0];
+    const dish = props.dishes.dishes.filter((d) => d.id === id)[0];
     const comments = props.comments.filter((c) => c.dishId === id);
 
     return (
@@ -66,7 +85,7 @@ function DishDetail(props) {
                 </Breadcrumb>
             </div>
             <div className="row">
-                {renderDish(dish)}
+                {renderDish(dish, props.isLoading, props.errMess)}
                 {renderComments(comments, props.addComment, id)}
             </div>
         </div>

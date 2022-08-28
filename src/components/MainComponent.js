@@ -8,7 +8,7 @@ import Contact from "./ContactComponent";
 import DishDetail from "./DishDetailComponent";
 import About from "./AboutComponent";
 import {connect} from "react-redux";
-import { addComment } from '../redux/ActionCreators';
+import {addComment, fetchDishes} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -20,18 +20,22 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes: () => {dispatch(fetchDishes())}
 });
 
 class Main extends Component {
 
     constructor(props) {
         super(props);
+    }
 
+    componentDidMount() {
+        this.props.fetchDishes();
     }
 
     render() {
-        const featuredOne = this.props.dishes.filter((dish) => dish.featured)[0];
+        const featuredOne = this.props.dishes.dishes.filter((dish) => dish.featured)[0];
         const featuredPromotion = this.props.promotions.filter((promo) => promo.featured)[0];
         const featuredLeader = this.props.leaders.filter((lead) => lead.featured)[0];
 
@@ -41,6 +45,8 @@ class Main extends Component {
                 <Routes>
                     <Route path="/home" element={
                         <Home dish={featuredOne}
+                              dishesLoading={this.props.dishes.isLoading}
+                              dishesErrMess={this.props.dishes.errMess}
                               promotion={featuredPromotion}
                               leader={featuredLeader}/>
                     }/>
@@ -49,6 +55,8 @@ class Main extends Component {
                         path="/menu/:dishId"
                         element={<DishDetail
                             dishes={this.props.dishes}
+                            isLoading={this.props.dishes.isLoading}
+                            errMess={this.props.dishes.errMess}
                             comments={this.props.comments}
                             addComment={this.props.addComment}
                         />}
