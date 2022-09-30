@@ -9,7 +9,7 @@ function CommentForm(props) {
     const maxLength = (len) => (val) => !val || val.length <= len;
     const minLength = (len) => (val) => val && val.length >= len;
     const submitComment = (values) => {
-        props.addComment(props.dishId, values.rating, values.author, values.comment);
+        props.postComment(props.dishId, values.rating, values.author, values.comment);
         toggle();
     };
 
