@@ -6,7 +6,7 @@ import {baseUrl} from "../shared/baseUrl";
 function RenderCard({item, isLoading, errMess}) {
     if (isLoading) {
         return (
-            <Loading />
+            <Loading/>
         );
     } else if (errMess) {
         return (
